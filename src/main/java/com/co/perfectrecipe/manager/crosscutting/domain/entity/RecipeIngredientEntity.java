@@ -11,8 +11,8 @@ import java.util.UUID;
 @Builder
 @Entity
 @ToString
-@Table(schema = "PERFECT_RECIPE_DOMAIN", name = "recipe")
-public class RecipeIngredient {
+@Table(schema = "PERFECT_RECIPE_DOMAIN", name = "recipe_ingredient")
+public class RecipeIngredientEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
     @Id
     private UUID id;
