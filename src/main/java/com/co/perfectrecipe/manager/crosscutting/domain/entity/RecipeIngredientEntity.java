@@ -18,7 +18,7 @@ public class RecipeIngredientEntity {
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "fk_recipe", nullable = true)
+    @JoinColumn(name = "fk_recipe", foreignKey = @ForeignKey(name = "fk_recipe"))
     private RecipeEntity recipe;
 
     private String description;

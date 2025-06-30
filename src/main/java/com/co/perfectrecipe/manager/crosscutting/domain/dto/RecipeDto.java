@@ -1,5 +1,6 @@
 package com.co.perfectrecipe.manager.crosscutting.domain.dto;
 
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,9 @@ public class RecipeDto {
     private String cookingTime;
     private String prepTime;
     private String typeCuisine;
-    private List<String> instructions;
-    private List<String> ingredients;
+    private List<RecipeInstructionsDto> instructions;
+    private List<RecipeIngredientDto> ingredients;
+    private String author;
+    private Integer calories;
+    private Integer visits;
 }

@@ -2,11 +2,15 @@ package com.co.perfectrecipe.manager.module.recipe.service.impl;
 
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.ApiResponseDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.RecipeDto;
+import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeEntity;
+import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeIngredientEntity;
 import com.co.perfectrecipe.manager.crosscutting.domain.enums.TypeError;
 import com.co.perfectrecipe.manager.crosscutting.domain.translators.ApiResponseTranslator;
+import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeIngredientTranslator;
 import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeTranslator;
 import com.co.perfectrecipe.manager.crosscutting.exception.ApiProcessException;
 import com.co.perfectrecipe.manager.module.recipe.service.RecipeService;
+import com.co.perfectrecipe.manager.module.recipe.usecase.RecipeIngredientUseCase;
 import com.co.perfectrecipe.manager.module.recipe.usecase.RecipeUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -36,8 +40,9 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public ResponseEntity<ApiResponseDto> save(RecipeDto recipe) throws ApiProcessException {
         try {
+            RecipeEntity recipeSaved = this.recipeUseCase.save(RecipeTranslator.toRecipeEntity(recipe));
             return ResponseEntity.ok(ApiResponseTranslator.toApiResponseDto(HttpStatus.OK,
-                    RecipeTranslator.toRecipeDto(this.recipeUseCase.save(RecipeTranslator.toRecipeEntity(recipe)))));
+                    RecipeTranslator.toRecipeDto(recipeSaved)));
         } catch (Exception ex) {
             throw new ApiProcessException(ex, TypeError.IR_002);
         }
