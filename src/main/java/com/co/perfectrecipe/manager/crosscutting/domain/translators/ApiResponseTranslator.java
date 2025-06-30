@@ -1,7 +1,7 @@
-package com.co.domainconfiguration.manager.crosscutting.domain.translators;
+package com.co.perfectrecipe.manager.crosscutting.domain.translators;
 
-import com.co.domainconfiguration.manager.crosscutting.domain.enums.TypeError;
-import com.co.domainconfiguration.manager.crosscutting.domain.dto.ApiResponseDto;
+import com.co.perfectrecipe.manager.crosscutting.domain.dto.ApiResponseDto;
+import com.co.perfectrecipe.manager.crosscutting.domain.enums.TypeError;
 import org.springframework.http.HttpStatus;
 
 public class ApiResponseTranslator {

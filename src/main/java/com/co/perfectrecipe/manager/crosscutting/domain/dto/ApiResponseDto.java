@@ -1,4 +1,4 @@
-package com.co.domainconfiguration.manager.crosscutting.domain.dto;
+package com.co.perfectrecipe.manager.crosscutting.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

@@ -1,15 +1,15 @@
-package com.co.domainconfiguration.manager.crosscutting.domain.enums;
+package com.co.perfectrecipe.manager.crosscutting.domain.enums;
 
 import org.springframework.http.HttpStatus;
 
 public enum TypeError {
-    IR_001("IR_001", "Error consultado site configuation por id", HttpStatus.NOT_FOUND),
+    IR_001("IR_001", "Error consultando recipe", HttpStatus.NOT_FOUND),
 
-    IR_002("IR_002", "Error consultando todos los sites configurations", HttpStatus.NOT_FOUND),
+    IR_002("IR_002", "Error guardando recipe", HttpStatus.CONFLICT),
 
-    IR_003("IR_003", "Error persistiendo site configuation", HttpStatus.CONFLICT),
+    IR_003("IR_003", "Error actualizando recipe", HttpStatus.CONFLICT),
 
-    IR_004("IR_004", "Error suprimiendo site", HttpStatus.CONFLICT),
+    IR_004("IR_004", "Error suprimiendo recipe", HttpStatus.CONFLICT),
     IR_005("IR_005", "Error consultado Menu por id", HttpStatus.CONFLICT),
     IR_006("IR_006", "Error consultando todos los Menus", HttpStatus.CONFLICT),
     IR_007("IR_007", "Error persistiendo Menu", HttpStatus.CONFLICT),

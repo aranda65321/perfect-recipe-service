@@ -1,6 +1,6 @@
-package com.co.domainconfiguration.manager.crosscutting.exception;
+package com.co.perfectrecipe.manager.crosscutting.exception;
 
-import com.co.domainconfiguration.manager.crosscutting.domain.enums.TypeError;
+import com.co.perfectrecipe.manager.crosscutting.domain.enums.TypeError;
 
 public class ApiProcessException extends Exception {
 

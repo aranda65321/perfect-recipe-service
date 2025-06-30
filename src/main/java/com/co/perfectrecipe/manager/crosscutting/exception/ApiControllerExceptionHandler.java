@@ -1,7 +1,7 @@
-package com.co.domainconfiguration.manager.crosscutting.exception;
+package com.co.perfectrecipe.manager.crosscutting.exception;
 
-import com.co.domainconfiguration.manager.crosscutting.domain.dto.ApiResponseDto;
-import com.co.domainconfiguration.manager.crosscutting.domain.translators.ApiResponseTranslator;
+import com.co.perfectrecipe.manager.crosscutting.domain.dto.ApiResponseDto;
+import com.co.perfectrecipe.manager.crosscutting.domain.translators.ApiResponseTranslator;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
