@@ -69,7 +69,6 @@ public class RecipeServiceImpl implements RecipeService {
             return ResponseEntity.ok(ApiResponseTranslator.toApiResponseDto(HttpStatus.OK,
                     RecipeTranslator.toRecipeDto(this.recipeUseCase.update(recipe))));
         } catch (Exception ex) {
-            FileUtils.saveFile()
             throw new ApiProcessException(ex, TypeError.IR_003);
         }
     }
