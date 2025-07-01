@@ -2,9 +2,7 @@ package com.co.perfectrecipe.manager.crosscutting.domain.translators;
 
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.RecipeDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeEntity;
-import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeIngredientEntity;
-import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeInstructionEntity;
-import org.springframework.cglib.core.Local;
+import com.co.perfectrecipe.manager.crosscutting.utils.FileUtils;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,6 +30,7 @@ public class RecipeTranslator {
                 .author(recipe.getAuthor())
                 .calories(recipe.getCalories())
                 .visits(recipe.getVisits())
+                .img(FileUtils.encodeImageToBase64DataUrl(recipe.getImg(), "image/png"))
                 .ingredients(RecipeIngredientTranslator.toListRecipeIngredientDto(recipe))
                 .instructions(RecipeInstructionTranslator.toListRecipeInstructionDto(recipe))
                 .build();
@@ -52,6 +51,7 @@ public class RecipeTranslator {
                 .author(recipe.getAuthor())
                 .calories(recipe.getCalories())
                 .visits(recipe.getVisits())
+                .img(recipe.getImg())
                 .build();
         recipeEntity.setIngredients(RecipeIngredientTranslator.toListRecipeIngredientEntity(recipeEntity, recipe.getIngredients()));
         recipeEntity.setInstructions(RecipeInstructionTranslator.toListRecipeIngredientEntity(recipeEntity, recipe.getInstructions()));

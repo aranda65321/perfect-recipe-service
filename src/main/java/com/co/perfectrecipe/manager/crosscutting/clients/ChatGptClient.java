@@ -4,30 +4,25 @@ import com.co.perfectrecipe.manager.crosscutting.domain.dto.ChatGptChatRequestDt
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.ChatGptChatResponseDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.ChatGptImageRequestDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.ChatGptImageResponseDto;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.env.Environment;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import reactor.netty.http.client.HttpClient;
+
+import java.net.URI;
 
 @Component
-@AllArgsConstructor
 public class ChatGptClient {
-
-    private WebClient client;
+    @Autowired
     private Environment environment;
-
-    @PostMapping
-    private void init() {
-        this.client = WebClient.builder()
-                .baseUrl(this.environment.getRequiredProperty("services.chat-gpt.host"))
-                .defaultHeader(HttpHeaders.AUTHORIZATION, this.environment.getRequiredProperty("services.chat-gpt.key-secret"))
-                .defaultHeader(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .build();
-    }
+    @Autowired
+    @Qualifier("chatGptClient")
+    private WebClient client;
 
     public ChatGptChatResponseDto generateChat(ChatGptChatRequestDto request) {
         return this.client.post()
@@ -44,6 +39,22 @@ public class ChatGptClient {
                 .body(Mono.just((request)), ChatGptImageRequestDto.class)
                 .retrieve()
                 .bodyToMono(ChatGptImageResponseDto.class)
+                .block();
+    }
+
+    public byte[] downloadImage(String urlImage) {
+        ExchangeStrategies strategies = ExchangeStrategies.builder()
+                .codecs(configurer -> configurer.defaultCodecs().maxInMemorySize(10 * 1024 * 1024)) // 10 MB
+                .build();
+        WebClient webClient = WebClient.builder()
+                .exchangeStrategies(strategies)
+                .clientConnector(new ReactorClientHttpConnector(HttpClient.create()))
+                .build();
+        return webClient
+                .get()
+                .uri(URI.create(urlImage))
+                .retrieve()
+                .bodyToMono(byte[].class)
                 .block();
     }
 }

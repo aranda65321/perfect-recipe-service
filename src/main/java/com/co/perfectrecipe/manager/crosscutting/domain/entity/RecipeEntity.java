@@ -31,6 +31,8 @@ public class RecipeEntity {
     private String prepTime;
     @Column(name = "type_cusine")
     private String typeCuisine;
+    @Column(name = "img")
+    private String img;
     @Column(name = "author")
     private String author;
     @Column(name = "calories")

@@ -27,4 +27,5 @@ public class RecipeDto {
     private String author;
     private Integer calories;
     private Integer visits;
+    private String img;
 }

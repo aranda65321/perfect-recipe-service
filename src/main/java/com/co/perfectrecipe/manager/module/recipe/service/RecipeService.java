@@ -15,6 +15,8 @@ public interface RecipeService {
 
     public ResponseEntity<ApiResponseDto> save(RecipeDto recipe) throws ApiProcessException;
 
+    public ResponseEntity<ApiResponseDto> generateRecipe() throws ApiProcessException;
+
     public ResponseEntity<ApiResponseDto> update(RecipeDto recipe) throws ApiProcessException;
 
     public void delete(UUID recipeId) throws ApiProcessException;

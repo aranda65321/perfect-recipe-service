@@ -2,6 +2,8 @@ package com.co.perfectrecipe.manager.module.recipe.usecase.impl;
 
 import com.co.perfectrecipe.manager.crosscutting.domain.dto.RecipeDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeEntity;
+import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeIngredientTranslator;
+import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeInstructionTranslator;
 import com.co.perfectrecipe.manager.module.recipe.dataprovider.RecipeDataProvider;
 import com.co.perfectrecipe.manager.module.recipe.usecase.RecipeUseCase;
 import lombok.AllArgsConstructor;
@@ -40,6 +42,11 @@ public class RecipeUseCaseImpl implements RecipeUseCase {
         recipeSaved.setPrepTime(recipe.getPrepTime());
         recipeSaved.setServings(recipe.getServings());
         recipeSaved.setTypeCuisine(recipe.getTypeCuisine());
+        recipeSaved.setCalories(recipe.getCalories());
+        recipeSaved.setAuthor(recipe.getAuthor());
+        recipeSaved.setImg(recipe.getImg());
+        recipeSaved.setInstructions(RecipeInstructionTranslator.toListRecipeIngredientEntity(recipeSaved, recipe.getInstructions()));
+        recipeSaved.setIngredients(RecipeIngredientTranslator.toListRecipeIngredientEntity(recipeSaved, recipe.getIngredients()));
         return this.save(recipeSaved);
     }
 

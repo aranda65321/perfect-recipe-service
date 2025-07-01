@@ -28,7 +28,8 @@ public enum TypeError {
     IR_020("IR_02O", "Error actulizando usuario", HttpStatus.CONFLICT),
     IR_021("IR_021", "Error eliminando usuario", HttpStatus.CONFLICT),
 
-    IR_022("IR_022", "Error actualizando site", HttpStatus.CONFLICT);
+    IR_022("IR_022", "Error actualizando site", HttpStatus.CONFLICT),
+    IR_023("IR_023", "Error guardando imagen en servidor", HttpStatus.CONFLICT);
 
 
     private String code;

@@ -9,6 +9,8 @@ import com.co.perfectrecipe.manager.crosscutting.domain.translators.ApiResponseT
 import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeIngredientTranslator;
 import com.co.perfectrecipe.manager.crosscutting.domain.translators.RecipeTranslator;
 import com.co.perfectrecipe.manager.crosscutting.exception.ApiProcessException;
+import com.co.perfectrecipe.manager.crosscutting.utils.FileUtils;
+import com.co.perfectrecipe.manager.module.chatgpt.service.ChatGptService;
 import com.co.perfectrecipe.manager.module.recipe.service.RecipeService;
 import com.co.perfectrecipe.manager.module.recipe.usecase.RecipeIngredientUseCase;
 import com.co.perfectrecipe.manager.module.recipe.usecase.RecipeUseCase;
@@ -17,7 +19,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.UUID;
 
@@ -26,6 +30,7 @@ import java.util.UUID;
 public class RecipeServiceImpl implements RecipeService {
 
     private final RecipeUseCase recipeUseCase;
+    private final ChatGptService chatGptService;
 
     @Override
     public ResponseEntity<ApiResponseDto> findById(UUID id) throws ApiProcessException {
@@ -49,11 +54,22 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    public ResponseEntity<ApiResponseDto> generateRecipe() throws ApiProcessException {
+        try {
+            RecipeDto recipe = this.chatGptService.generateRecipe();
+            return this.save(recipe);
+        } catch (Exception ex) {
+            throw new ApiProcessException(ex, TypeError.IR_002);
+        }
+    }
+
+    @Override
     public ResponseEntity<ApiResponseDto> update(RecipeDto recipe) throws ApiProcessException {
         try {
             return ResponseEntity.ok(ApiResponseTranslator.toApiResponseDto(HttpStatus.OK,
                     RecipeTranslator.toRecipeDto(this.recipeUseCase.update(recipe))));
         } catch (Exception ex) {
+            FileUtils.saveFile()
             throw new ApiProcessException(ex, TypeError.IR_003);
         }
     }
