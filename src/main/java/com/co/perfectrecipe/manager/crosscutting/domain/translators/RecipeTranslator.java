@@ -4,7 +4,9 @@ import com.co.perfectrecipe.manager.crosscutting.domain.dto.RecipeDto;
 import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeEntity;
 import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeIngredientEntity;
 import com.co.perfectrecipe.manager.crosscutting.domain.entity.RecipeInstructionEntity;
+import org.springframework.cglib.core.Local;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class RecipeTranslator {
     public static RecipeDto toRecipeDto(RecipeEntity recipe) {
         return RecipeDto.builder()
                 .cookingTime(recipe.getCookingTime())
-                .creationDate(recipe.getCreationDate())
+                .creationDate(LocalDateTime.now().toString())
                 .description(recipe.getDescription())
                 .id(recipe.getId())
                 .name(recipe.getName())
@@ -40,7 +42,7 @@ public class RecipeTranslator {
         RecipeEntity recipeEntity = RecipeEntity.builder()
                 .id(recipe.getId())
                 .cookingTime(recipe.getCookingTime())
-                .creationDate(recipe.getCreationDate())
+                .creationDate(LocalDateTime.now())
                 .description(recipe.getDescription())
                 .name(recipe.getName())
                 .note(recipe.getNote())

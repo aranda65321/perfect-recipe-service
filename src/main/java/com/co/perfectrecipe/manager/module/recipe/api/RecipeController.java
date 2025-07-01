@@ -19,7 +19,7 @@ public class RecipeController {
     private final RecipeService recipeService;
 
     @GetMapping("/findById")
-    public ResponseEntity<ApiResponseDto> findById(UUID id) throws ApiProcessException {
+    public ResponseEntity<ApiResponseDto> findById(@RequestParam UUID id) throws ApiProcessException {
         return this.recipeService.findById(id);
     }
 
